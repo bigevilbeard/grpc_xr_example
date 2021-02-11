@@ -15,6 +15,7 @@ import click
 class Example:
     def __init__(self):
         self.client = CiscoGRPCClient('sbx-iosxr-mgmt.cisco.com', 19399, 10, 'admin', 'C1sco12345')
+    
     def get_facts(self):
         path = '{"Cisco-IOS-XR-ipv4-bgp-cfg:bgp": [null]}'
         result = self.client.getconfig(path)
@@ -35,6 +36,8 @@ class Example:
         result = self.client.deleteconfig(path)
         print(result) # If this is sucessful, then there should be no errors.
 
+
+
 @click.group()
 def cli():
     pass
@@ -42,10 +45,17 @@ def cli():
 @click.command()
 def get():
     click.secho("Retrieving Information")
-    get = json.dumps(get_facts(), sort_keys=True, indent=4)
+    get = json.dumps((Example.get_facts), sort_keys=True, indent=4)
     click.echo(get)
 
+@click.command()
+def replace():
+    click.secho("Retrieving Information")
+    replace = json.dumps((Example.config_replace), sort_keys=True, indent=4)
+    click.echo(replace)
+
 cli.add_command(get)
+cli.add_command(replace)
 
 if __name__ == "__main__":
     cli()
