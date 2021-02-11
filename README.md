@@ -45,5 +45,122 @@ grpc
  no-tls 
 ```
 
+## Code Examples
+
+Change to into the `examples` diretory and run the following code, this uses the yang model https://github.com/YangModels/yang/blob/master/vendor/cisco/xr/653/openconfig-interfaces.yang and will print all the interface from the Always-On Sandbox IOS-XR device in a `json` format.
+
+```
+(venv)python grpc_example.py 
+{
+    "openconfig-interfaces:interfaces": {
+        "interface": [
+            {
+                "name": "Loopback100",
+                "config": {
+                    "name": "Loopback100",
+                    "type": "iana-if-type:softwareLoopback",
+                    "enabled": true,
+                    "description": "***MERGE LOOPBACK 100****"
+                },
+                "subinterfaces": {
+                    "subinterface": [
+                        {
+                            "index": 0,
+                            "openconfig-if-ip:ipv4": {
+                                "addresses": {
+                                    "address": [
+                                        {
+                                            "ip": "1.1.1.100",
+                                            "config": {
+                                                "ip": "1.1.1.100",
+                                                "prefix-length": 32
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+[/snip]
+```
 
 
+This code uses the JSON below is based off the YANG model provided by Cisco: https://github.com/YangModels/yang/blob/master/vendor/cisco/xr/653/Cisco-IOS-XR-ipv4-bgp-cfg.yang
+
+You can walk through the hierachy using pyang, and create a JSON model similar to the example below. https://github.com/mbj4668/pyang/wiki/TreeOutput
+
+This JSON model is for a BGP configuration. We can see that it is defining a BGP instance and a single neighbor.
+
+```
+{
+ "Cisco-IOS-XR-ipv4-bgp-cfg:bgp": {
+  "instance": [
+   {
+    "instance-name": "default",
+    "instance-as": [
+     {
+      "as": 0,
+      "four-byte-as": [
+       {
+        "as": 65400,
+        "bgp-running": [
+         null
+        ],
+        "default-vrf": {
+         "global": {
+          "router-id": "11.1.1.10",
+          "global-afs": {
+           "global-af": [
+            {
+             "af-name": "ipv4-unicast",
+             "enable": [
+              null
+             ],
+             "sourced-networks": {
+              "sourced-network": [
+               {
+                "network-addr": "11.1.1.0",
+                "network-prefix": 24
+               }
+              ]
+             }
+            }
+           ]
+          }
+         },
+         "bgp-entity": {
+          "neighbors": {
+           "neighbor": [
+            {
+             "neighbor-address": "11.1.1.20",
+             "remote-as": {
+              "as-xx": 0,
+              "as-yy": 65450
+             },
+             "neighbor-afs": {
+              "neighbor-af": [
+               {
+                "af-name": "ipv4-unicast",
+                "activate": [
+                 null
+                ],
+                "next-hop-self": true
+               }
+              ]
+             }
+            }
+           ]
+          }
+         }
+        }
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ }
+}
+```
