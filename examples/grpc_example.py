@@ -21,7 +21,7 @@ def main():
         print(json.dumps(json.loads(result), indent=4))
     except AbortionError:
         print(
-            'Unable to connect to local box, check your gRPC destination.'
+            'Unable to connect to Sandbox, check your gRPC destination and configuration.'
             )
 
 if __name__ == '__main__':
