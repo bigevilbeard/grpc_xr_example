@@ -33,6 +33,7 @@ source venv/bin/activate
 Install the code requirements
 ```
 Either download this repository or install with `pip install iosxr_grpc`
+pip install click
 ```
 
 ### Enable gRPC

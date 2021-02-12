@@ -13,11 +13,11 @@ import json
 from time import sleep
 import click
 
+
 class Example:
-    def __init__(self, host, port, timeout, user, password, creds=None, options=None):
-        # self.client = CiscoGRPCClient('sbx-iosxr-mgmt.cisco.com', 19399, 10, 'admin', 'C1sco12345')
-        self.client = CiscoGRPCClient(host=host, port=port, timeout=timeout, user=user, password=password)
-    
+    def __init__(self):
+        self.client = CiscoGRPCClient('sbx-iosxr-mgmt.cisco.com', 19399, 10, 'admin', 'C1sco12345')
+
     def get(self):
         path = '{"Cisco-IOS-XR-ipv4-bgp-cfg:bgp": [null]}'
         result = self.client.getconfig(path)
@@ -40,37 +40,46 @@ class Example:
         result = self.client.deleteconfig(path)
         print(result) # If this is sucessful, then there should be no errors.
 
-    
-device = CiscoGRPCClient('sbx-iosxr-mgmt.cisco.com', 19399, 10, 'admin', 'C1sco12345')
 
+example = Example()
 
 @click.group()
 def cli():
     pass
 
 @click.command()
-def fact():
-    click.secho("Retrieving Information")
-    # get = json.loads((Example.get), sort_keys=True, indent=4)
-    # cisco_sucks_at_keeping_up_with_stuff = Example.get
-    # fact = json.loads(str(device.getconfig('path')(), sort_keys=True, indent=4))
-    print(device.getconfig('path'))
-    click.echo(fact)
+def get():
+    try:
+        fact = example.client.getconfig(path='{"Cisco-IOS-XR-ipv4-bgp-cfg:bgp": [null]}')
+        new_fact = json.loads(fact[1])
+        print(json.dumps(new_fact, indent=4))
+    except Exception as e:
+        print ("BGP instance 'default' not active")
 
 
 @click.command()
 def replace():
-    click.secho("Replacing Configuration")
-    # cisco_sucks_at_keeping_up_with_stuffs = Example.replace
+    new_path = open('snips/bgp_start.json').read()
+    add_replace = example.client.replaceconfig(yangjson= new_path)
+    print("Replace Completed")
 
-    # get = json.loads((str(cisco_sucks_at_keeping_up_with_stuffs)))
-    # print(Example.replace)
-    click.echo(replace)
+@click.command()
+def merge():
+    new_path = open('snips/bgp_merge.json').read()
+    add_merge = example.client.mergeconfig(yangjson= new_path)
+    print("Merge Completed")
 
-cli.add_command(fact)
+@click.command()
+def delete():
+    new_path = open('snips/bgp_delete.json').read()
+    add_delete = example.client.deleteconfig(yangjson= new_path)
+    print("Delete Completed")
+
+
+cli.add_command(get)
 cli.add_command(replace)
-# cli.add_command(merge)
-# cli.add_command(delete)
+cli.add_command(merge)
+cli.add_command(delete)
 
 if __name__ == "__main__":
     cli()
