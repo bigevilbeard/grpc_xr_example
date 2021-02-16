@@ -19,6 +19,16 @@ gRPC is an open-source RPC framework. It is based on Protocol Buffers (Protobuf)
 
 ## Getting Started
 
+### Enable gRPC
+
+SSH in to the Always-On Sandbox IOS XR router and turn on gRPC and disable tls, below is an example configuration
+
+```
+grpc
+ port 57777
+ no-tls 
+```
+
 
 ### Python Environment Setup
 It is recommended that this code be used with Python 3.6. It is highly recommended to leverage Python Virtual Environments (venv).
@@ -33,18 +43,9 @@ source venv/bin/activate
 Install the code requirements
 
 ```
-pip install click
+pip install -r requirements
 ```
 
-### Enable gRPC
-
-SSH in to the Always-On Sandbox IOS XR router and turn on gRPC and disable tls, below is an example configuration
-
-```
-grpc
- port 57777
- no-tls 
-```
 
 ## Code Example "Get Interfaces"
 
