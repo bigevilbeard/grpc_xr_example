@@ -169,7 +169,7 @@ This JSON model is for a BGP configuration. We can see that it is defining a BGP
 This code uses Object-Oriented Programming (OOP). This is a programming paradigm where different components of a computer program are modeled after real-world objects. An object is anything that has some characteristics and can perform a function. All args used in the running of the code are handled using Click. Click is a Python package for creating beautiful command line interfaces in a composable way with as little code as necessary. From the examples directory run the following
 
 ```
-(venv) grpc_xr_example$ pythongrpc_cfg.py --help
+(venv) grpc_xr_example$ python grpc_cfg.py --help
 Usage: grpc_cfg.py [OPTIONS] COMMAND [ARGS]...
 
 Options:
