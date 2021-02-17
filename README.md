@@ -43,13 +43,13 @@ source venv/bin/activate
 Install the code requirements
 
 ```
-pip install -r requirements
+pip install -r requirements.txt
 ```
 
 
 ## Code Example "Get Interfaces"
 
-To get all the interfaces from the Always-On Sandbox IOS-XR device, we can run this small piece of code derived from OpenConfig YANG models and serialise this as `JSON`. Change to into the `examples` diretory and run the following code, this uses the yang model https://github.com/YangModels/yang/blob/master/vendor/cisco/xr/653/openconfig-interfaces.yang and will print all the interface from the Always-On Sandbox IOS-XR device in the `json` format.
+To get all the interfaces from the Always-On Sandbox IOS-XR device, we can run this small piece of code derived from OpenConfig YANG models and serialise this as `JSON`. Change into the `examples` directory and run the following code, this uses the yang model https://github.com/YangModels/yang/blob/master/vendor/cisco/xr/653/openconfig-interfaces.yang and will print all the interface from the Always-On Sandbox IOS-XR device in the `json` format.
 
 ```
 (venv)python grpc_example.py 
