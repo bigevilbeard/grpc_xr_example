@@ -11,7 +11,7 @@ sys.path.insert(0, '../')
 from iosxr_grpc.cisco_grpc_client import CiscoGRPCClient
 
 def main():
-    client = CiscoGRPCClient('sbx-iosxr-mgmt.cisco.com', 19399, 10, 'admin', 'C1sco12345')
+    client = CiscoGRPCClient('sandbox-iosxr-1.cisco.com', 57777, 10, 'admin', 'C1sco12345')
     # path = '{"Cisco-IOS-XR-ipv4-bgp-cfg:bgp": [null]}'
     path = '{"openconfig-interfaces:interfaces": [null]}'
     try:
